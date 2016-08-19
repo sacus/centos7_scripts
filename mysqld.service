@@ -1,0 +1,12 @@
+[Unit]
+Description=mysqld
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/mysqld start 
+ExecStop=/etc/init.d/mysqld stop
+Restart=/etc/init.d/mysqld  restart
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+#!/bin/bash
+#!/bin/bash
+# chkconfig: - 84 20
+# description:	nginx Process Manager
+
+case $1 in 
+  start)
+     /application/nginx/sbin/nginx
+;;
+  stop)
+    /application/nginx/sbin/nginx -s stop
+;;  
+reload)
+    /application/nginx/sbin/nginx -s reload
+;;  
+check)
+    /applicatin/nginx/sbin/nginx -t
+;;  
+restart)
+    /application/nginx/sbin/nginx -s stop
+   /application/nginx/sbin/nginx
+;;
+*)
+printf "Usage:$0 {start|stop|restart|reload|check}\n"
+esac

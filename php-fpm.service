@@ -1,0 +1,12 @@
+[Unit]
+Description=php-fpmd
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/application/php/sbin/php-fpm  
+ExecStop= kill -INT `cat /application/php/var/run/php-fpm.pid`
+Restart=kill -USR2 `cat /application/php/var/run/php-fpm.pid`
+
+[Install]
+WantedBy=multi-user.target

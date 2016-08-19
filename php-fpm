@@ -1,0 +1,52 @@
+#!/bin/bash
+# chkconfig: - 84 16
+# description:	PHP FastCGI Process Manager
+# processname: php-fpm
+#php-fpm start stop restart scripts
+#start php-fpm
+function start_php-fpm() {
+	if [ -f  /application/php/var/run/php-fpm.pid ]
+	  then
+	   echo -e "php-fpm is started\n"
+       	  else
+	    /application/php/sbin/php-fpm 
+	fi
+     }	
+
+function stop_php-fpm(){
+	if [ -f  /application/php/var/run/php-fpm.pid ]
+	  then
+	     kill -INT `cat /application/php/var/run/php-fpm.pid`
+	  else
+	     echo -e "php-fpm is stopped\n"
+	fi
+	}
+
+
+function restart_php-fpm(){
+	if [ -f  /application/php/var/run/php-fpm.pid ]
+	  then
+	      kill -USR2 `cat /application/php/var/run/php-fpm.pid`
+	  else
+	      /application/php/sbin/php-fpm
+	fi
+    }
+ 
+
+
+case "$1" in
+	start)
+	 start_php-fpm
+	;;
+	
+	stop)
+	  stop_php-fpm
+	;;
+		
+	restart)
+	  restart_php-fpm
+	;;
+
+	*)
+	printf "Usage:$0 {start|stop|restart}\n"
+esac	
