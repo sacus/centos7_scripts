@@ -1,0 +1,13 @@
+#!/bin/bash
+#the scripts is created by clc
+#the scripts is too test mysql is running or not ,is used by nagios
+
+	a=`netstat -lntup|grep "3306"|wc -l`
+if [ $a -eq 1 ]
+	then	
+	  echo "mysql is running!"
+	  exit 0
+	else
+	  echo "mysql is dump!!!"
+	  exit 2
+fi

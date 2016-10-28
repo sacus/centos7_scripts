@@ -1,0 +1,25 @@
+#!/bin/bash
+#the scripts created by clc
+#根据分区情况来判断，以下传参就两个分区，如果需要多个，要增加，且在nrpe.cfg的文件中增加好传参参数
+#$1和$2分别是第一个分区和第二个，最好是按顺序传参。
+	idle=`iostat |awk 'NR==4{print $6}'`
+	iored=`iostat -k|grep "$1" |awk '{print $3}'`
+	iowrt=`iostat -k|grep "$1" |awk '{print $4}'`
+	iored2=`iostat -k|grep "$2" |awk '{print $3}'`
+	iowrt2=`iostat -k|grep "$2" |awk '{print $4}'`
+#if $a ==0 ,then $a >=70
+	a=`echo "$idle<70"|bc`
+	b=`echo "$idle<55"|bc`
+
+if [ $a -eq 0 ]
+	then
+	echo "the iostat is normal,the idle is "$idle"%,the $1 kB_read/s is $iored,the $1 kb_wrtn/s is $iowrt,the $2 kB_read/s is $iored2,the $2 kb_wrtn/s is $iowrt2 "
+	exit 0
+elif [ $a -eq 1 -a $b -eq 0 ]
+	then
+	echo "the iostat is a bit high,the idle is "$idle"%,the $1 kB_read/s is $iored,the $1 kb_wrtn/s is $iowrt,the $2 kB_read/s is $iored2,the $2 kb_wrtn/s is $iowrt2"
+	exit 1
+else 
+	echo "the iostat is too high,the idle is "$idle"%,the $1 kB_read/s is $iored,the $1 kb_wrtn/s is $iowrt,the $2 kB_read/s is $iored2,the $2 kb_wrtn/s is $iowrt2"
+	exit 2
+fi

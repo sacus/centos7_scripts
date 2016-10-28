@@ -1,0 +1,25 @@
+#!/bin/bash
+#the scripts created by clc
+#a is memory total,b is memory is used ,c is used precent ,f is +buffers/cached is not use,the g is the really rate 
+# the memory used rate see the buffer and cached 
+#内存的使用率还要看cache和bufferd中没有使用的，真正的使用率应该是去掉cache和buffer中没有用的，以下g变量是真正的
+	a=`free -m |awk 'NR==2{ print $2}'`
+	b=$(free -m |awk 'NR==2{ print $3}')
+	f=$(free -m |awk 'NR==3{print $3}')
+	c=`echo "scale=3;$b/$a"|bc`
+	g=`echo "scale=3;$f/$a"|bc`
+	h=`echo "$g<0.950"|bc`
+	i=`echo "$g<0.850"|bc`
+	d=`echo "$c<0.993"|bc`
+if [ "$i" -eq 1 ]
+	then
+	 echo "memory used is normal,the really usage rate is $g and $f M,the usage rate is $c and $b M,the total mem is $a M"
+	exit 0
+elif [ "$h" -eq 1 -o "$d" -eq 0 ]
+	then
+	echo "memeory used is a bit high,the really usage rate is $g and $f M,the usage rate is $c and $b M,the total mem is $a M"
+	exit 1
+else
+	echo "memory used is too high!!!!the really usage rate is $g and $f M,the usage rate is $c and $b M,the total mem is $a M!!!!"
+	exit 2
+fi 
