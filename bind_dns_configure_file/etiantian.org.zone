@@ -1,0 +1,20 @@
+$ttl 38400
+etiantian.org. IN SOA ns1.etiantian.org. webmaster.etiantian.org. (
+        2014042600
+        10800
+        3600
+        604800
+        38400 )
+   IN NS ns1.etiantian.org.
+;   IN NS ns2.etiantian.org.
+ns1 IN A 192.168.0.50
+;ns2 IN a 192.168.0.50
+  IN MX 10 mail
+
+www IN A 192.168.0.50
+blog IN CNAME www
+ftp  IN CNAME www
+bbs  IN CNAME www
+mail IN  A 192.168.0.50
+a.www IN A 192.168.0.12
+clc   IN CNAME  bbs

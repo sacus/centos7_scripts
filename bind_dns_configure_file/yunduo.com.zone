@@ -1,0 +1,30 @@
+$ORIGIN .
+$TTL 3600       ; 1 hour
+yunduo.com                  IN SOA  op.yunduo.com. dns.yunduo.com. (
+                                2000       ; serial
+                                900        ; refresh (15 minutes)
+                                600        ; retry (10 minutes)
+                                86400      ; expire (1 day)
+                                3600       ; minimum (1 hour)
+                                )
+                        NS      op.yunduo.com.
+$ORIGIN yunduo.com.
+gitlab              A      192.168.7.204 
+op              A       1.2.3.4
+www		A       8.8.8.8
+gengee		A       8.8.8.8
+my 		A       8.8.8.8
+m 		A       8.8.8.8
+mall		A       8.8.8.8
+static2		A       8.8.8.8
+mdaerp		A       8.8.8.8
+openapi 	A       8.8.8.8
+api.erp         A	8.8.8.8
+mdaall		A	8.8.8.8
+applocal	A	8.8.8.8
+redmine         A	192.168.7.204
+mail 		A	14.17.42.118
+clc		A 	192.168.7.202
+api.jzdy        A       8.8.8.8
+ipv6		AAAA    fe80::d447:5ab1:3ee0:73ab 
+

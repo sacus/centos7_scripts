@@ -1,0 +1,15 @@
+$ORIGIN .
+$TTL 3600
+isheshi.com  IN SOA isheshi.com.  dns.isheshi.com. (
+        2017
+        900
+        600
+        86400
+        3600
+	 )
+    NS isheshi.com.
+$ORIGIN isheshi.com.
+  IN	 A   8.8.8.18
+weixin	 A   8.8.8.18
+www	 A   8.8.8.19
+
