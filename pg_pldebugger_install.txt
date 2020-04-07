@@ -1,0 +1,7 @@
+cd /usr/pgsql-11/lib/pgxs/src
+git clone git://git.postgresql.org/git/pldebugger.git
+yum install openssl-devel -y
+yum install postgresql11-devel.x86_64
+
+https://my.oschina.net/u/2358231/blog/795204
+https://blog.dbi-services.com/how-to-compile-postgresql-11-with-support-for-jit-compilation-on-rhelcentos-7/
