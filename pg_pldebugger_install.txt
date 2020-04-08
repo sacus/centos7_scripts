@@ -5,3 +5,28 @@ yum install postgresql11-devel.x86_64
 
 https://my.oschina.net/u/2358231/blog/795204
 https://blog.dbi-services.com/how-to-compile-postgresql-11-with-support-for-jit-compilation-on-rhelcentos-7/
+
+pg10 centos6环境安装 ，pg是yum install
+yum install openssl-devel -y
+yum install postgresql10-devel.x86_64
+
+cd /usr/pgsql-10/share/contrib/
+git clone git://git.postgresql.org/git/pldebugger.git
+cd pldebugger
+make 会报以下错：
+[root@sl-svr-60 pldebugger]# make -j 2
+Makefile:32: ../../src/Makefile.global: No such file or directory
+Makefile:33: /contrib/contrib-global.mk: No such file or directory
+make: *** No rule to make target `/contrib/contrib-global.mk'.  Stop.
+
+不用管，直接执行，
+make USE_PGXS=1 install成功了就可以了，会生成/usr/pgsql-10/lib/plugin_debugger.so文件 
+然后在配置文件中添加：
+shared_preload_libraries = '/usr/pgsql-10/lib/plugin_debugger.so'
+然后重启服务 
+最后创建 extion
+su - postgres
+psql
+postgres=# create extension pldbgapi;
+CREATE EXTENSION
+postgres=# select * from pg_extension;
