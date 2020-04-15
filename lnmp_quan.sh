@@ -37,7 +37,10 @@ function mysql_5_6_install() {
     yum-config-manager --disable mysql57-community  && \
     yum-config-manager --disable mysql80-community  && \
     yum-config-manager --enable mysql56-community  && \
-    yum install mysql-community-server -y 
+    yum install mysql-community-server -y && \
+	echo "LimitNOFILE=65535
+LimitNPROC=65535" >>/usr/lib/systemd/system/mysqld.service
+	systemctl daemon-reload
     if [ $? -eq 0 ]
       then 
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -58,7 +61,10 @@ function mysql_5_7_install() {
     yum-config-manager --disable mysql56-community  && \
     yum-config-manager --disable mysql80-community  && \
     yum-config-manager --enable mysql57-community  && \
-    yum install mysql-community-server -y 
+    yum install mysql-community-server -y && \
+		echo "LimitNOFILE=65535
+LimitNPROC=65535" >>/usr/lib/systemd/system/mysqld.service
+	systemctl daemon-reload
     if [ $? -eq 0 ]
       then 
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -510,6 +516,7 @@ function supervisor_install() {
 	sed -i 's#/tmp/supervisor.sock#/var/run/supervisor.sock#g' /etc/supervisord.conf 
 	sed -i 's#/tmp/supervisord.pid#/var/run/supervisord.pid#g' /etc/supervisord.conf 
 	sed -i 's#/tmp/supervisord.log#/var/log/supervisor/supervisord.log#g' /etc/supervisord.conf 
+	sed -i 's#minfds=1024#minfds=30240#g' /etc/supervisord.conf
 	echo -e "\n\n
 ;[program:down]
 ;directory=/data/www
@@ -542,6 +549,8 @@ After=rc-local.service nss-user-lookup.target
 [Service]
 Type=forking
 ExecStart=$b_supervisor -c /etc/supervisord.conf
+LimitNOFILE=65535
+LimitNPROC=65535
 
 [Install]
 WantedBy=multi-user.target
@@ -1142,7 +1151,7 @@ function read1(){
 		read1
         elif [ "$a" == "18" ];then
                 echo "install php 7 redis extension ....."
-		php_7_redis_install
+		php_7_redis_install	
 		menu
 		read1
         elif [ "$a" == "19" ];then
