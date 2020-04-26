@@ -1,0 +1,47 @@
+鲲鹏云编译报架构错误：
+https://blog.51cto.com/fengyuzaitu/2453330?source=dra
+pg编译安装参考：
+https://segmentfault.com/a/1190000019928714
+https://www.cnblogs.com/monkey6/p/10529439.html
+pg rpm包：
+https://yum.postgresql.org/11/redhat/rhel-7-x86_64/repoview/
+
+./configure \
+--prefix=/usr/local/php5.6.40 \
+--with-pdo-mysql=mysqlnd \
+--with-mysqli=mysqlnd \
+--with-iconv-dir=/usr/local/libiconv \
+--with-freetype-dir \
+--with-jpeg-dir \
+--with-png-dir \
+--with-zlib \
+--with-libxml-dir=/usr \
+--enable-xml \
+--disable-rpath \
+--enable-safe-mode \
+--enable-bcmath \
+--enable-shmop \
+--enable-sysvsem \
+--enable-inline-optimization \
+--with-curl \
+--with-curlwrappers \
+--enable-mbregex \
+--enable-fpm \
+--enable-mbstring \
+--with-mcrypt \
+--with-gd \
+--enable-gd-native-ttf \
+--with-openssl \
+--with-mhash \
+--enable-pcntl \
+--enable-sockets \
+--with-xmlrpc \
+--enable-zip \
+--enable-soap \
+--enable-short-tags \
+--enable-zend-multibyte \
+--enable-static \
+--with-xsl \
+--with-fpm-user=nginx \
+--with-fpm-group=nginx \
+--enable-ftp
