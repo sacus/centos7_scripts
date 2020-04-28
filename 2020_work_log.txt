@@ -6,8 +6,10 @@ https://www.cnblogs.com/monkey6/p/10529439.html
 pg rpm°ü£º
 https://yum.postgresql.org/11/redhat/rhel-7-x86_64/repoview/
 
+centos7ÏÂ±àÒëphp for pgsql
+https://blog.csdn.net/u011138447/article/details/51224394
 ./configure \
---prefix=/usr/local/php5.6.40 \
+--prefix=/usr/local/php-5.6.40 \
 --with-pdo-mysql=mysqlnd \
 --with-mysqli=mysqlnd \
 --with-iconv-dir=/usr/local/libiconv \
@@ -44,4 +46,6 @@ https://yum.postgresql.org/11/redhat/rhel-7-x86_64/repoview/
 --with-xsl \
 --with-fpm-user=nginx \
 --with-fpm-group=nginx \
---enable-ftp
+--enable-ftp \
+--with-pgsql=/usr/local/pgsql-11.7/ \
+--with-pdo-pgsql=/usr/local/pgsql-11.7/
