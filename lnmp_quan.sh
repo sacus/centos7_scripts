@@ -37,10 +37,7 @@ function mysql_5_6_install() {
     yum-config-manager --disable mysql57-community  && \
     yum-config-manager --disable mysql80-community  && \
     yum-config-manager --enable mysql56-community  && \
-    yum install mysql-community-server -y && \
-	echo "LimitNOFILE=65535
-LimitNPROC=65535" >>/usr/lib/systemd/system/mysqld.service
-	systemctl daemon-reload
+    yum install mysql-community-server -y 
     if [ $? -eq 0 ]
       then 
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -61,10 +58,7 @@ function mysql_5_7_install() {
     yum-config-manager --disable mysql56-community  && \
     yum-config-manager --disable mysql80-community  && \
     yum-config-manager --enable mysql57-community  && \
-    yum install mysql-community-server -y && \
-		echo "LimitNOFILE=65535
-LimitNPROC=65535" >>/usr/lib/systemd/system/mysqld.service
-	systemctl daemon-reload
+    yum install mysql-community-server -y 
     if [ $? -eq 0 ]
       then 
         echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -516,7 +510,6 @@ function supervisor_install() {
 	sed -i 's#/tmp/supervisor.sock#/var/run/supervisor.sock#g' /etc/supervisord.conf 
 	sed -i 's#/tmp/supervisord.pid#/var/run/supervisord.pid#g' /etc/supervisord.conf 
 	sed -i 's#/tmp/supervisord.log#/var/log/supervisor/supervisord.log#g' /etc/supervisord.conf 
-	sed -i 's#minfds=1024#minfds=30240#g' /etc/supervisord.conf
 	echo -e "\n\n
 ;[program:down]
 ;directory=/data/www
@@ -549,8 +542,6 @@ After=rc-local.service nss-user-lookup.target
 [Service]
 Type=forking
 ExecStart=$b_supervisor -c /etc/supervisord.conf
-LimitNOFILE=65535
-LimitNPROC=65535
 
 [Install]
 WantedBy=multi-user.target
@@ -592,6 +583,34 @@ export GOPATH=/root/go_work
 export PATH=\$PATH:\$GOROOT/bin
 export GO111MODULE=on" >>/etc/profile
    mkdir -p /root/go_work/{pkg,bin,src} 
+}
+
+function nodejs_v12_16_3_install () {
+    if [ ! -d /root/tools ]
+      then
+		mkdir /root/tools
+    fi
+	cd /root/tools && \
+    wget https://nodejs.org/dist/v12.16.3/node-v12.16.3-linux-x64.tar.gz && \
+    tar -zxf node-v12.16.3-linux-x64.tar.gz && \
+	mv node-v12.16.3-linux-x64 /usr/local/ 
+	echo "export NODE_HOME=/usr/local/node-v12.16.3-linux-x64
+export PATH=$NODE_HOME/bin:$PATH" >>/etc/profile
+	source /etc/profile
+}
+
+function nodejs_v10_20_1_install () {
+    if [ ! -d /root/tools ]
+      then
+		mkdir /root/tools
+    fi
+	cd /root/tools && \
+    wget https://nodejs.org/dist/v10.20.1/node-v10.20.1-linux-x64.tar.gz && \
+    tar -zxf node-v10.20.1-linux-x64.tar.gz && \
+	mv node-v10.20.1-linux-x64 /usr/local/ 
+	echo "export NODE_HOME=/usr/local/node-v10.20.1-linux-x64
+export PATH=$NODE_HOME/bin:$PATH" >>/etc/profile
+	source /etc/profile
 }
 
 function nginx_conf () {
@@ -1047,7 +1066,9 @@ cat<<EOF
 # 21.[INSTALL  SUPERVISOR_INSTALL      ]  #
 # 22.[INSTALL  GO_13_INSTALL           ]  #
 # 23.[INSTALL  GO_14_INSTALL           ]  #
-# 24.[EXIT                             ]  #                     
+# 24.[INSTALL  nodejs12.16.3 INSTALL   ]  #
+# 25.[INSTALL  nodejs10.20.1 INSTALL   ]  #
+# 25.[EXIT                             ]  #                     
 ###########################################
 EOF
 read -t 20 -p "pls input the num you want to install :" a
@@ -1151,7 +1172,7 @@ function read1(){
 		read1
         elif [ "$a" == "18" ];then
                 echo "install php 7 redis extension ....."
-		php_7_redis_install	
+		php_7_redis_install
 		menu
 		read1
         elif [ "$a" == "19" ];then
@@ -1179,7 +1200,17 @@ function read1(){
 		go_14_install
 		menu
 		read1
-        elif [ "$a" == "24" ];then
+		elif [ "$a" == "24" ];then
+                echo "install nodejs_v12.16.3  version ......."
+		nodejs_v12_16_3_install
+		menu
+		read1
+		elif [ "$a" == "25" ];then
+                echo "install nodejs_v12.16.3  version ......."
+		nodejs_v10_20_1_install
+		menu
+		read1	
+        elif [ "$a" == "26" ];then
                 echo "exiting........."
                 exit
 
