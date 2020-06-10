@@ -594,8 +594,8 @@ function nodejs_v12_16_3_install () {
     wget https://nodejs.org/dist/v12.16.3/node-v12.16.3-linux-x64.tar.gz && \
     tar -zxf node-v12.16.3-linux-x64.tar.gz && \
 	mv node-v12.16.3-linux-x64 /usr/local/ 
-	echo "export NODE_HOME=/usr/local/node-v12.16.3-linux-x64
-export PATH=$NODE_HOME/bin:$PATH" >>/etc/profile
+	echo 'export NODE_HOME=/usr/local/node-v12.16.3-linux-x64
+export PATH=$NODE_HOME/bin:$PATH' >>/etc/profile
 	source /etc/profile
 }
 
@@ -608,8 +608,8 @@ function nodejs_v10_20_1_install () {
     wget https://nodejs.org/dist/v10.20.1/node-v10.20.1-linux-x64.tar.gz && \
     tar -zxf node-v10.20.1-linux-x64.tar.gz && \
 	mv node-v10.20.1-linux-x64 /usr/local/ 
-	echo "export NODE_HOME=/usr/local/node-v10.20.1-linux-x64
-export PATH=$NODE_HOME/bin:$PATH" >>/etc/profile
+	echo 'export NODE_HOME=/usr/local/node-v10.20.1-linux-x64
+export PATH=$NODE_HOME/bin:$PATH' >>/etc/profile
 	source /etc/profile
 }
 
