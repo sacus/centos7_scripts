@@ -989,12 +989,14 @@ innodb_open_files = 65535
 symbolic-links=0
 
 # Recommended in standard MySQL setup
-sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
-#sql_mode=
+#sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+sql_mode=
 
 character-set-server = utf8
 collation-server = utf8_general_ci
 default-time-zone='+8:00'
+log-error=/var/log/mysql/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
 
 [mysqld_safe]
 log-error=/var/log/mysql/mysqld.log
