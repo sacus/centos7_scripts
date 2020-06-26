@@ -639,7 +639,7 @@ http {
 
   log_format  main  '\$remote_addr \$remote_user [\$time_local] \$http_host \"\$request\" \"\$request_body\" '
                                '\$status \$body_bytes_sent \"\$http_referer\" '
-                               '\"\$http_user_agent\" \$request_time \$upstream_response_time \$upstream_status  $http_x_forwarded_for';
+                               '\"\$http_user_agent\" \$request_time \$upstream_response_time \$upstream_status $http_x_forwarded_for';
 
     access_log  /var/log/nginx/access.log  main;
 
