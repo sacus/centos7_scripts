@@ -129,6 +129,29 @@ function php_7_3_install() {
     fi
 }
 
+function php_7_4_install() {
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
+    yum -y install epel-release yum-utils && \
+    yum install epel-release -y && \
+    yum-config-manager --disable remi-php54 && \
+    yum-config-manager --enable remi-php74  && \
+    yum install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json php-process -y
+    if [ $? -eq 0 ]
+      then
+	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "php install is successful"    
+    fi   
+
+#
+    num1=`grep -c  "nginx" /etc/passwd`
+    if [ $num1 -eq 1 ]
+      then
+	chown -R nginx /var/lib/php
+        chown -R nginx /var/log/php-fpm
+    fi
+}
+
+
 #install redis
 function redis_install() {
     if [ ! -d /root/tools ]
@@ -1070,7 +1093,8 @@ cat<<EOF
 # 23.[INSTALL  GO_14_INSTALL           ]  #
 # 24.[INSTALL  nodejs12.16.3 INSTALL   ]  #
 # 25.[INSTALL  nodejs10.20.1 INSTALL   ]  #
-# 25.[EXIT                             ]  #                     
+# 26.[INSTALL  PHP_7_4_INSTALL         ]  #
+# 27.[EXIT                             ]  #                     
 ###########################################
 EOF
 read -t 20 -p "pls input the num you want to install :" a
@@ -1202,17 +1226,22 @@ function read1(){
 		go_14_install
 		menu
 		read1
-		elif [ "$a" == "24" ];then
+	elif [ "$a" == "24" ];then
                 echo "install nodejs_v12.16.3  version ......."
 		nodejs_v12_16_3_install
 		menu
 		read1
-		elif [ "$a" == "25" ];then
+	elif [ "$a" == "25" ];then
                 echo "install nodejs_v12.16.3  version ......."
 		nodejs_v10_20_1_install
 		menu
 		read1	
         elif [ "$a" == "26" ];then
+                echo "start install php 7.3.x version ...."
+		php_7_3_install
+		menu
+		read1
+        elif [ "$a" == "27" ];then
                 echo "exiting........."
                 exit
 
