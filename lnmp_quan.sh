@@ -135,7 +135,7 @@ function php_7_4_install() {
     yum install epel-release -y && \
     yum-config-manager --disable remi-php54 && \
     yum-config-manager --enable remi-php74  && \
-    yum install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json php-process -y
+    yum  --enablerepo=remi-php74 install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json php-process -y
     if [ $? -eq 0 ]
       then
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
