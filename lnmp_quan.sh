@@ -70,9 +70,9 @@ function mysql_5_7_install() {
 #install php 
 function php_5_6_install() {
     yum install epel-release -y && \
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && \
-    yum install php56w  php56w-bcmath php56w-cli php56w-common php56w-fpm php56w-gd \
-    php56w-mysqlnd php56w-pdo php56w-mbstring php56w-mcrypt php56w-devel php56w-xml -y 
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
+    yum  --enablerepo=remi-php56 install php  php-bcmath php-cli php-common php-fpm php-gd \
+    php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml -y 
     if [ $? -eq 0 ]
       then
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -90,8 +90,8 @@ function php_5_6_install() {
 
 function php_7_2_install() {
     yum install epel-release -y && \
-    rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && \
-    yum install php72w  php72w-bcmath php72w-cli php72w-common php72w-fpm php72w-gd  php72w-mysqlnd php72w-pdo php72w-mbstring php72w-mcrypt php72w-devel php72w-xml php72w-opcache -y  && \
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
+    yum --enablerepo=remi-php72 install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache -y  && \
     if [ $? -eq 0 ]
       then
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -111,9 +111,7 @@ function php_7_3_install() {
     yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
     yum -y install epel-release yum-utils && \
     yum install epel-release -y && \
-    yum-config-manager --disable remi-php54 && \
-    yum-config-manager --enable remi-php73  && \
-    yum install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json  -y
+    yum --enablerepo=remi-php73 install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json  -y
     if [ $? -eq 0 ]
       then
 	echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
@@ -133,8 +131,6 @@ function php_7_4_install() {
     yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
     yum -y install epel-release yum-utils && \
     yum install epel-release -y && \
-    yum-config-manager --disable remi-php54 && \
-    yum-config-manager --enable remi-php74  && \
     yum  --enablerepo=remi-php74 install php  php-bcmath php-cli php-common php-fpm php-gd  php-mysqlnd php-pdo php-mbstring php-mcrypt php-devel php-xml php-opcache php-zip  php-curl  php-pear  php-json php-process -y
     if [ $? -eq 0 ]
       then
